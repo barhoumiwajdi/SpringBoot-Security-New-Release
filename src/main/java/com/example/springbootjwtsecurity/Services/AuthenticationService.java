@@ -41,6 +41,7 @@ private final PasswordEncoder passwordEncoder ;
                 .firstname(savedUser.getFirstname())
                 .lastname(savedUser.getFirstname())
                 .email(savedUser.getEmail())
+
                 .Message("User Added Successfully")
                 .build();
     }
