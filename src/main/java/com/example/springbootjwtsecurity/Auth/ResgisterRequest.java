@@ -21,4 +21,14 @@ public class ResgisterRequest {
     private String password;
     private Role role;
 
+    private String streetAddress;
+
+    private String city;
+
+    private String state;
+
+    private String postalCode;
+
+    private String country;
+
 }

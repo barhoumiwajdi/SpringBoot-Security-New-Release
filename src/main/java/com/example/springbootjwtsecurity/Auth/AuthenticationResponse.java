@@ -1,6 +1,7 @@
 package com.example.springbootjwtsecurity.Auth;
 
 
+import com.example.springbootjwtsecurity.Model.Adresse;
 import com.example.springbootjwtsecurity.Model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,7 @@ public class AuthenticationResponse {
     private String firstname;
     private String lastname ;
     private String email ;
+    private Adresse adresse;
     private String Message;
 
 }

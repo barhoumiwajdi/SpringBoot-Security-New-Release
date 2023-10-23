@@ -19,4 +19,24 @@ private UserRepository userrepo;
         return  userrepo.findAll();
 
     }
+    public List<User> getUser() {
+        return userrepo.findAll();
+    }
+
+
+    public User getUserByid(int id) {
+        return userrepo.findById(id).get();
+    }
+
+
+    public User updateUser(int id, User user) {
+        User user1 = userrepo.findById(id).get();
+        user1.setId(id);
+        return userrepo.save(user1);
+    }
+
+
+    public void deleteUser(int id) {
+        userrepo.deleteById(id);
+    }
 }

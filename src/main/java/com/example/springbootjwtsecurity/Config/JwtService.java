@@ -8,7 +8,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,7 +27,6 @@ private static final String SECRET="404E635266556A586E3272357538782F413F4428472B
         public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
         }
-
         public <T> T extractClaim(String jwt , Function<Claims , T> claimsResolver){
         final Claims  claims = extractAllClaims((jwt));
         return claimsResolver.apply(claims);

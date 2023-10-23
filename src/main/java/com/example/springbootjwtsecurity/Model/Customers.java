@@ -1,21 +1,20 @@
 package com.example.springbootjwtsecurity.Model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Customers")
+@Table(name = "customer")
 public class Customers {
 
 
@@ -25,4 +24,9 @@ public class Customers {
     private String firstName;
     private String lastName;
     private String email;
+
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
+    private List<Reservation> reservations;
+
 }

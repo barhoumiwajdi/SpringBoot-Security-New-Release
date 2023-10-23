@@ -32,12 +32,18 @@ private final PasswordEncoder passwordEncoder ;
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .city(request.getCity())
+                .streetAddress(request.getStreetAddress())
+                .country(request.getCountry())
+                .postalCode(request.getPostalCode())
+                .state(request.getState())
+
                 .build();
         var savedUser = userRepository.save(user);
 
-        var jwtToken = jwtService.generteToken(savedUser);
+
         return AuthenticationResponse.builder()
-                .token(jwtToken)
+
                 .firstname(savedUser.getFirstname())
                 .lastname(savedUser.getFirstname())
                 .email(savedUser.getEmail())

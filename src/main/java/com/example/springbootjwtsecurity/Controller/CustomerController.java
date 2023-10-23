@@ -34,4 +34,10 @@ private CustomersService customerService ;
         return customerService.getcustomerlist();
     }
 
+    @GetMapping("/{ID}")
+    public Customers getcustomer(@PathVariable("ID") int ID){
+        System.out.println("hello");
+        return customerService.getCustomer(ID);
+    }
+
 }
