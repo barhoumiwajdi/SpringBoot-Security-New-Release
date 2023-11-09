@@ -1,6 +1,7 @@
 package com.example.springbootjwtsecurity.Services;
 
 
+import com.example.springbootjwtsecurity.Exception.CustomerNotFoundException;
 import com.example.springbootjwtsecurity.Model.User;
 import com.example.springbootjwtsecurity.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,21 +21,32 @@ private UserRepository userrepo;
         return  userrepo.findAll();
 
     }
-    public List<User> getUser() {
-        return userrepo.findAll();
-    }
+
 
 
     public User getUserByid(int id) {
-        return userrepo.findById(id).get();
+        Optional<User> found = userrepo.findById(id);
+        if (found.isEmpty()){
+            throw new CustomerNotFoundException("customer not found");
+
+        } else
+        {
+            return found.get();
+        }
     }
 
 
     public User updateUser(int id, User user) {
-        User user1 = userrepo.findById(id).get();
-        user1.setId(id);
-        return userrepo.save(user1);
-    }
+         Optional<User> found =  userrepo.findById(id);
+             if (found.isPresent()) {
+                  user.setId(id);
+                return userrepo.save(user);
+}
+          else {
+                  throw  new CustomerNotFoundException("no USer With this Id will be updated try to verify your data ");
+               }
+
+               }
 
 
     public void deleteUser(int id) {

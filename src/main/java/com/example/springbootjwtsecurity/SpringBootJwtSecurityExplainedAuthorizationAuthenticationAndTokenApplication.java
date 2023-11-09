@@ -39,6 +39,10 @@ public class SpringBootJwtSecurityExplainedAuthorizationAuthenticationAndTokenAp
                     .email("admin@gmail.com")
                     .password("password")
                     .role(Role.ADMIN)
+                    .city("Mhamdia")
+                    .country("ben arous")
+                    .postalCode("1145")
+                    .state("tunisia")
                     .build();
             System.out.println("Admin Détails: " + service.register(admin));
 
@@ -48,6 +52,10 @@ public class SpringBootJwtSecurityExplainedAuthorizationAuthenticationAndTokenAp
                     .email("manager@gmail.com")
                     .password("password")
                     .role(Role.MANAGER)
+                    .city("Mhamdia")
+                    .country("ben arous")
+                    .postalCode("1145")
+                    .state("tunisia")
                     .build();
             System.out.println("Manager Détails: " + service.register(manager));
 
@@ -57,6 +65,10 @@ public class SpringBootJwtSecurityExplainedAuthorizationAuthenticationAndTokenAp
                     .email("user@gmail.com")
                     .password("password")
                     .role(Role.USER)
+                    .city("Mhamdia")
+                    .country("ben arous")
+                    .postalCode("1145")
+                    .state("tunisia")
                     .build();
             System.out.println("User Détails: " + service.register(user));
 

@@ -60,7 +60,6 @@ private static final String SECRET="404E635266556A586E3272357538782F413F4428472B
                 .setExpiration(new Date(System.currentTimeMillis()+1000*60*30))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256)
                 .compact();
-
           }
 
           public Boolean IsTokenValid(String token , UserDetails userDetails){

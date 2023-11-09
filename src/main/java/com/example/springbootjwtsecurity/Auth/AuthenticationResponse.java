@@ -1,8 +1,5 @@
 package com.example.springbootjwtsecurity.Auth;
 
-
-import com.example.springbootjwtsecurity.Model.Adresse;
-import com.example.springbootjwtsecurity.Model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,12 +11,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationResponse {
 
-
     private String token;
     private String firstname;
     private String lastname ;
     private String email ;
-    private Adresse adresse;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String country;
     private String Message;
 
 }

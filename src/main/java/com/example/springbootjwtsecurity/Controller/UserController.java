@@ -15,13 +15,10 @@ public class UserController {
 
     @Autowired
     private UserServices userService;
-
-
-
     @GetMapping("/users")
     public List<User> getUsers(){
         System.out.println("Users..");
-        return userService.getUser();
+        return userService.getAllusers();
     }
 
     @GetMapping("/user/{id}")

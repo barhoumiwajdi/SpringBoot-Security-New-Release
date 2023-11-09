@@ -1,6 +1,7 @@
 package com.example.springbootjwtsecurity.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -36,6 +37,7 @@ public class User implements UserDetails {
     private String firstname ;
     private String lastname;
     private String email;
+    @JsonIgnore
     private String password ;
     private String mobile;
     private Date created_at;
@@ -54,11 +56,12 @@ public class User implements UserDetails {
     private String country;
 
 
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-        return List.of(new SimpleGrantedAuthority(role.name()));
-
+        return role.getAuthorities();
     }
 
     @Override

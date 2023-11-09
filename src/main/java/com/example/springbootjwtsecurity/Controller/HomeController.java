@@ -1,7 +1,6 @@
 package com.example.springbootjwtsecurity.Controller;
 
 
-import com.example.springbootjwtsecurity.Model.Customers;
 import com.example.springbootjwtsecurity.Model.User;
 import com.example.springbootjwtsecurity.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
