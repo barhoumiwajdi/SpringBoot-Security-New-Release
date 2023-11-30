@@ -6,16 +6,23 @@ import com.example.springbootjwtsecurity.Auth.AuthenticationResponse;
 import com.example.springbootjwtsecurity.Auth.ResgisterRequest;
 import com.example.springbootjwtsecurity.Config.JwtService;
 
+import com.example.springbootjwtsecurity.Exception.BadRequestResponse;
+import com.example.springbootjwtsecurity.Exception.CustomerNotFoundException;
+import com.example.springbootjwtsecurity.Model.Role;
 import com.example.springbootjwtsecurity.Model.Token;
 import com.example.springbootjwtsecurity.Model.TokenType;
 import com.example.springbootjwtsecurity.Model.User;
 import com.example.springbootjwtsecurity.Repository.TokenRepo;
 import com.example.springbootjwtsecurity.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -40,6 +47,7 @@ private final PasswordEncoder passwordEncoder ;
                 .country(request.getCountry())
                 .postalCode(request.getPostalCode())
                 .state(request.getState())
+                .role(Role.USER)
 
                 .build();
         var jwtToken = jwtService.generteToken(user);
@@ -47,7 +55,7 @@ private final PasswordEncoder passwordEncoder ;
         saveUserToken(savedUser, jwtToken);
 
         return AuthenticationResponse.builder()
-
+                .token(jwtToken)
                 .firstname(savedUser.getFirstname())
                 .lastname(savedUser.getFirstname())
                 .email(savedUser.getEmail())
@@ -56,6 +64,7 @@ private final PasswordEncoder passwordEncoder ;
                 .country(savedUser.getCountry())
                 .postalCode(savedUser.getPostalCode())
                 .state(savedUser.getState())
+                .role(Role.USER)
                 .Message("User Added Successfully")
                 .build();
     }
@@ -80,24 +89,34 @@ private final PasswordEncoder passwordEncoder ;
         tokenRepo.saveAll(validUserTokens);
     }
     public AuthenticationResponse login(AuthenticationRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow();
-        var jwtToken = jwtService.generteToken(user);
-        revokeAllUserTokens(user);
-        saveUserToken(user, jwtToken);
-        return AuthenticationResponse.builder()
-                .token(jwtToken)
-                .firstname(user.getFirstname())
-                .lastname(user.getFirstname())
-                .email(user.getEmail())
-                .Message("User Connected")
-                .build();
+        Optional<User> exist = userRepository.findByEmail(request.getEmail());
+        if(exist.isPresent()){
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+            var user = userRepository.findByEmail(request.getEmail())
+                    .orElseThrow();
+            var jwtToken = jwtService.generteToken(user);
+            revokeAllUserTokens(user);
+            saveUserToken(user, jwtToken);
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .id(user.getId())
+                    .firstname(user.getFirstname())
+                    .lastname(user.getFirstname())
+                    .email(user.getEmail())
+                    .role(user.getRole())
+                    .Message("User Connected")
+                    .build();
+        }
+        else
+        {
+            throw new BadRequestResponse("verify your email and password");
+         }
+
 
     }
 

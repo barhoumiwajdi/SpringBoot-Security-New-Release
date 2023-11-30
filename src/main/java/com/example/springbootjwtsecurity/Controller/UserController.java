@@ -1,20 +1,19 @@
 package com.example.springbootjwtsecurity.Controller;
-
 import com.example.springbootjwtsecurity.Model.User;
 import com.example.springbootjwtsecurity.Services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/v1/user")
+@PreAuthorize("hasRole('USER')")
 public class UserController {
-
 
     @Autowired
     private UserServices userService;
+
     @GetMapping("/users")
     public List<User> getUsers(){
         System.out.println("Users..");

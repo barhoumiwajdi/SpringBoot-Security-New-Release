@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 
 public class ResgisterRequest {
-
+private String token ;
     private String firstname;
     private String lastname;
     private String email;

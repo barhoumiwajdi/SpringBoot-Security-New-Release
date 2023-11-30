@@ -1,5 +1,6 @@
 package com.example.springbootjwtsecurity.Auth;
 
+import com.example.springbootjwtsecurity.Model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class AuthenticationResponse {
-
+private int id ;
     private String token;
     private String firstname;
     private String lastname ;
@@ -21,5 +22,6 @@ public class AuthenticationResponse {
     private String postalCode;
     private String country;
     private String Message;
+    private Role role;
 
 }
